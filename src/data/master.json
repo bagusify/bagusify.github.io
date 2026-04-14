@@ -1,0 +1,65 @@
+{
+  "customApps": {
+    "toggle": "monthly",
+    "tiers": [
+      {
+        "name": "Tier 0: Sandboxing",
+        "description": "Uji Coba / Lingkungan Pengembangan",
+        "priceMonthly": 79000,
+        "priceYearly": 948000,
+        "bonus": "",
+        "tag": "DEVELOPMENT"
+      },
+      {
+        "name": "Tier 1: Starter",
+        "description": "Bisnis Profesional Skala Kecil",
+        "priceMonthly": 149000,
+        "priceYearly": 1500000,
+        "bonus": "Bonus 2 Bulan",
+        "tag": "PRO"
+      },
+      {
+        "name": "Tier 2: Medium",
+        "description": "Sistem untuk Skala Berkembang",
+        "priceMonthly": 750000,
+        "priceYearly": 7500000,
+        "bonus": "Bonus 2 Bulan",
+        "tag": "GROWTH"
+      },
+      {
+        "name": "Tier 3: Enterprise",
+        "description": "Solusi Skala Korporasi & Custom",
+        "priceMonthly": 12500000,
+        "priceYearly": 125000000,
+        "bonus": "Custom Support",
+        "tag": "ENTERPRISE"
+      }
+    ]
+  },
+  "weddingSuites": [
+    {
+      "name": "Paket Ekonomis",
+      "priceRange": "Rp 50.000 - Rp 100.000",
+      "validity": "3 - 6 Bulan",
+      "features": [
+        "Template Siap Pakai",
+        "Hitung Mundur (Countdown)",
+        "Galeri Foto",
+        "Peta Lokasi"
+      ]
+    },
+    {
+      "name": "Paket Standar",
+      "popular": true,
+      "priceRange": "Rp 100.000 - Rp 250.000",
+      "validity": "1 Tahun atau Lebih",
+      "features": [
+        "Pilihan Template Lebih Banyak",
+        "Buku Tamu Digital",
+        "RSVP WhatsApp",
+        "Wedding Gift (E-Wallet/Rekening)",
+        "Custom Lagu Background"
+      ]
+    }
+  ]
+}

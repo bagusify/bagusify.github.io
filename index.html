@@ -1,299 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bagusify | Digital Architect</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --panel-bg: #111111;
-            --teal: #0d9488;
-            --gold: #d97706;
-            --panel-width: 90vw;
-            --trigger-width: 60px;
-            --font-mono: 'JetBrains Mono', monospace;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: var(--bg-dark);
-            font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Prevent scroll on main view */
-            color: #ffffff;
-        }
-
-        /* --- HERO SECTION --- */
-        .main-hero {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            transition: var(--transition);
-        }
-
-        .hero-content {
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .brand-logo {
-            font-size: clamp(3rem, 12vw, 9rem);
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            margin: 0;
-        }
-
-        .brand-tagline {
-            font-family: var(--font-mono);
-            letter-spacing: 0.5em;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        /* --- PANEL ARCHITECTURE --- */
-        .side-panel {
-            position: fixed;
-            top: 0;
-            height: 100vh;
-            width: var(--panel-width);
-            background: var(--panel-bg);
-            z-index: 100;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none; /* Crucial: Allows clicking the hero when closed */
-            border-left: 1px solid rgba(255,255,255,0.05);
-            border-right: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Closed Positions */
-        #panel-left { left: 0; transform: translateX(calc(-100% + var(--trigger-width))); }
-        #panel-right { right: 0; transform: translateX(calc(100% - var(--trigger-width))); }
-
-        /* Active State */
-        .panel-active { 
-            transform: translateX(0) !important; 
-            pointer-events: all !important; /* Enable interaction when open */
-            z-index: 200;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-        }
-
-        .panel-inner {
-            padding: 4rem;
-            height: 100%;
-            overflow-y: auto;
-            opacity: 0;
-            transition: opacity 0.4s 0.2s;
-        }
-
-        .panel-active .panel-inner { opacity: 1; }
-
-        /* --- TRIGGERS --- */
-        .panel-trigger {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: var(--trigger-width);
-            cursor: pointer;
-            pointer-events: all; /* Always clickable */
-            background: rgba(255,255,255,0.03);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-
-        #panel-left .panel-trigger { right: 0; border-left: 1px solid rgba(255,255,255,0.1); }
-        #panel-right .panel-trigger { left: 0; border-right: 1px solid rgba(255,255,255,0.1); }
-
-        .panel-trigger:hover { background: rgba(255,255,255,0.08); }
-
-        .label-vertical {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            color: #777;
-        }
-
-        #panel-left .label-vertical { color: var(--teal); }
-        #panel-right .label-vertical { color: var(--gold); }
-
-        /* --- COMPONENTS --- */
-        .hero-dimmed {
-            filter: brightness(0.2) blur(8px);
-            transform: scale(0.96);
-        }
-
-        .btn-close-custom {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 8px 16px;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            transition: all 0.3s;
-        }
-        .btn-close-custom:hover { background: white; color: black; }
-
-        .app-card {
-            background: #181818;
-            border: 1px solid #282828;
-            padding: 2.5rem;
-            height: 100%;
-            transition: all 0.3s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .app-card:hover { border-color: var(--teal); transform: translateY(-5px); }
-        
-        .pricing-card {
-            border: 1px solid var(--gold);
-            padding: 2rem;
-            background: rgba(217, 119, 6, 0.05);
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            :root { --panel-width: 100vw; --trigger-width: 50px; }
-            .panel-inner { padding: 2rem; }
-            .brand-logo { font-size: 4rem; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/style.css">
 </head>
-<body>
+<body class="bg-light">
 
     <main class="main-hero" id="hero-bg" onclick="closeAll()">
-        <div class="hero-content">
+        <div class="hero-content text-center">
             <h1 class="brand-logo">BAGUSIFY</h1>
-            <p class="brand-tagline">Solutions &bull; Invitations</p>
+            <p class="brand-tagline">SYSTEMS • DESIGN • CELEBRATION</p>
         </div>
     </main>
 
     <aside id="panel-left" class="side-panel">
         <div class="panel-trigger" onclick="togglePanel('left', event)">
-            <span class="label-vertical">CUSTOM APPS</span>
+            <span class="label-vertical text-teal">CUSTOM SOLUTIONS</span>
         </div>
-        
         <div class="panel-inner">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <h2 class="display-6 fw-bold text-info">Project Gallery</h2>
-                <button class="btn-close-custom" onclick="closeAll()">CLOSE [ESC]</button>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-8">
-                    <a href="https://mitraflow.com" target="_blank" class="app-card">
-                        <small class="text-info font-monospace">FLAGSHIP SYSTEM</small>
-                        <h3 class="mt-2">MitraFlow</h3>
-                        <p class="text-secondary">Enterprise ISP management platform for billing, client monitoring, and automation.</p>
-                        <div class="mt-4">
-                            <span class="badge bg-dark border border-secondary p-2 me-2">Node.js</span>
-                            <span class="badge bg-dark border border-secondary p-2">Svelte</span>
-                        </div>
-                    </a>
+            <div class="panel-header d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="display-5 fw-bold text-teal">Kategori Layanan</h2>
+                    <p class="text-muted">Pilih paket pengembangan sesuai skala kebutuhan Anda.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="app-card border-dashed d-flex align-items-center justify-content-center text-center">
-                        <div>
-                            <p class="text-secondary mb-0">+ Manual Link</p>
-                            <small class="font-monospace opacity-50">Inject App URL</small>
-                        </div>
+                <div class="pricing-toggle-container">
+                    <span class="me-2 small fw-bold">Bulanan</span>
+                    <div class="form-check form-switch d-inline-block">
+                        <input class="form-check-input" type="checkbox" id="priceToggle" onchange="updatePriceView()">
                     </div>
+                    <span class="ms-1 small fw-bold">Tahunan</span>
                 </div>
             </div>
+            <div id="custom-apps-grid" class="row g-3">
+                </div>
         </div>
     </aside>
 
     <aside id="panel-right" class="side-panel">
         <div class="panel-trigger" onclick="togglePanel('right', event)">
-            <span class="label-vertical">WEDDING SUITE</span>
+            <span class="label-vertical text-gold">WEDDING INVITATION</span>
         </div>
-
         <div class="panel-inner">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <h2 class="display-6 fw-bold text-warning">Eternal Invitations</h2>
-                <button class="btn-close-custom" onclick="closeAll()">CLOSE [ESC]</button>
+            <div class="panel-header mb-5">
+                <h2 class="display-5 fw-bold text-gold">Eternal Invitations</h2>
+                <p class="text-muted">Abadikan momen spesial dengan undangan digital premium.</p>
             </div>
-
-            <div class="row g-4">
-                <div class="col-lg-7">
-                    <h4 class="font-monospace text-uppercase small text-secondary mb-4">Live Templates</h4>
-                    <div class="row g-3">
-                        <div class="col-6"><div class="app-card py-4 text-center">Modern Slate</div></div>
-                        <div class="col-6"><div class="app-card py-4 text-center">Royal Gold</div></div>
-                        <div class="col-6"><div class="app-card py-4 text-center">Minimalist</div></div>
-                        <div class="col-6"><div class="app-card py-4 text-center">Botanical</div></div>
-                    </div>
+            <div id="wedding-grid" class="row g-4 justify-content-center">
                 </div>
-                <div class="col-lg-5">
-                    <div class="pricing-card">
-                        <h4 class="mb-4">Standard Tier</h4>
-                        <ul class="list-unstyled">
-                            <li class="mb-3 d-flex justify-content-between"><span>Base Template</span> <strong>Included</strong></li>
-                            <li class="mb-3 d-flex justify-content-between"><span>RSVP System</span> <strong>Included</strong></li>
-                            <li class="mb-3 d-flex justify-content-between"><span>Custom Music</span> <strong>Included</strong></li>
-                            <li class="border-top pt-3 mt-3 d-flex justify-content-between"><span>Total</span> <strong class="text-warning">IDR 200k</strong></li>
-                        </ul>
-                        <button class="btn btn-warning w-100 py-3 mt-3 fw-bold">Select Template</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </aside>
 
-    <script>
-        // State Management
-        let activeSide = null;
-        const hero = document.getElementById('hero-bg');
-        const panels = {
-            left: document.getElementById('panel-left'),
-            right: document.getElementById('panel-right')
-        };
-
-        // Logic
-        function togglePanel(side, event) {
-            // STOP propagation so the hero's click-to-close doesn't fire
-            if(event) event.stopPropagation();
-
-            if (activeSide === side) {
-                closeAll();
-                return;
-            }
-
-            closeAll(); // Reset previous state
-
-            // Open new
-            panels[side].classList.add('panel-active');
-            hero.classList.add('hero-dimmed');
-            activeSide = side;
-        }
-
-        function closeAll() {
-            Object.values(panels).forEach(p => p.classList.remove('panel-active'));
-            hero.classList.remove('hero-dimmed');
-            activeSide = null;
-        }
-
-        // Global Listeners
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeAll();
-        });
-    </script>
+    <script src="src/js/app.js"></script>
 </body>
 </html>

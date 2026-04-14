@@ -1,0 +1,148 @@
+:root {
+    --bg-light: #f8f9fa;
+    --panel-bg: #ffffff;
+    --teal: #0d9488;
+    --gold: #b2945b;
+    --text-dark: #1a1a1a;
+    --trigger-width: 60px;
+    --transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    overflow: hidden;
+}
+
+/* HERO SECTION */
+.main-hero {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #ffffff 0%, #e5e7eb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.brand-logo {
+    font-size: clamp(3rem, 15vw, 10rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.brand-tagline {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.6em;
+    color: #9ca3af;
+    font-size: 0.75rem;
+}
+
+/* SIDE PANEL ARCHITECTURE */
+.side-panel {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 90vw;
+    background: var(--panel-bg);
+    z-index: 100;
+    transition: var(--transition);
+    pointer-events: none;
+    box-shadow: 0 0 40px rgba(0,0,0,0.05);
+}
+
+#panel-left { left: 0; transform: translateX(calc(-100% + var(--trigger-width))); border-right: 1px solid #eee; }
+#panel-right { right: 0; transform: translateX(calc(100% - var(--trigger-width))); border-left: 1px solid #eee; }
+
+.panel-active {
+    transform: translateX(0) !important;
+    pointer-events: all;
+    z-index: 200;
+}
+
+.panel-inner {
+    padding: 5rem;
+    height: 100%;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.4s 0.3s;
+}
+
+.panel-active .panel-inner { opacity: 1; }
+
+/* TRIGGERS */
+.panel-trigger {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: var(--trigger-width);
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    transition: background 0.3s;
+}
+
+.panel-trigger:hover { background: #f3f4f6; }
+
+.label-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+}
+
+.text-teal { color: var(--teal); }
+.text-gold { color: var(--gold); }
+
+/* COMPONENTS: CARDS */
+.price-card {
+    border: 1px solid #e5e7eb;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s;
+    background: #fff;
+}
+
+.price-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 10px 30px rgba(13, 148, 136, 0.05);
+}
+
+.wedding-card {
+    border: 1px solid #e5e7eb;
+    padding: 3rem;
+    border-radius: 0;
+    position: relative;
+}
+
+.wedding-card.popular {
+    border: 2px solid var(--gold);
+    background: #fffaf0;
+}
+
+.badge-bonus {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    background: #ccfbf1;
+    color: var(--teal);
+    padding: 4px 8px;
+}
+
+.hero-dimmed {
+    filter: blur(20px) opacity(0.3);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    :root { --trigger-width: 50px; }
+    .panel-inner { padding: 2rem; }
+    .side-panel { width: 100vw; }
+}
