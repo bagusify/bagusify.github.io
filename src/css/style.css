@@ -73,30 +73,60 @@ body {
 
 .panel-active .panel-inner { opacity: 1; }
 
-/* TRIGGERS */
+/* =========================================================
+   1. SHARED BASE (The "Engine")
+   Contains only the physics, interaction, and layout rules
+   ========================================================= */
 .panel-trigger {
-  position: absolute;
+    position: absolute;
     top: 0;
     height: 100%;
     width: var(--trigger-width);
     cursor: pointer;
     
-    /* CRITICAL FIXES BELOW */
+    /* Bulletproof Click Physics */
     pointer-events: auto !important; 
-    z-index: 999; /* Punches through any invisible overlay */
-    right: 0;
+    z-index: 9999 !important; 
     
+    /* Center the vertical text */
     display: flex;
     align-items: center;
     justify-content: center;
+    
     background: #ffffff;
-    transition: background 0.3s, transform 0.2s;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.panel-trigger:hover { 
-    background: #f3f4f6;
+/* Base hover animation */
+.panel-trigger:hover {
     transform: scale(1.02);
- }
+}
+
+/* =========================================================
+   2. LEFT PANEL SPECIFICS (Custom Solutions)
+   ========================================================= */
+#panel-left .panel-trigger {
+    right: 0; /* CRITICAL: Locks trigger to the inner right edge */
+    box-shadow: 5px 0 15px rgba(0,0,0,0.05); /* Subtle shadow pointing right */
+}
+
+/* Unique Hover Color for Left */
+#panel-left .panel-trigger:hover {
+    background: #f0fdfa; /* Ultra-light Teal */
+}
+
+/* =========================================================
+   3. RIGHT PANEL SPECIFICS (Wedding Suite)
+   ========================================================= */
+#panel-right .panel-trigger {
+    left: 0; /* CRITICAL: Locks trigger to the inner left edge */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.05); /* Subtle shadow pointing left */
+}
+
+/* Unique Hover Color for Right */
+#panel-right .panel-trigger:hover {
+    background: #fffbeb; /* Ultra-light Gold */
+}
 
 .label-vertical {
     writing-mode: vertical-rl;
