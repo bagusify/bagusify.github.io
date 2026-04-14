@@ -10,7 +10,7 @@ function setRandomHero() {
     
     // We keep the white radial gradient overlay at 90% opacity 
     // so the text remains perfectly readable on the light theme.
-    hero.style.background = `radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(229,231,235,0.95) 100%), url('${randomImg}') center/cover no-repeat`;
+    hero.style.background = `radial-gradient(circle at center,rgba(255,255,255,0.65) 0%, rgba(229,231,235,0.85) 100%), url('${randomImg}') center/cover no-repeat`;
 }
 
 // 2. EXPLICIT WINDOW BINDINGS (Fixes onclick errors)
