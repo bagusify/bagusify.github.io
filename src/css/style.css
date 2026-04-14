@@ -184,3 +184,79 @@ body {
     .panel-inner { padding: 2rem; }
     .side-panel { width: 100vw; }
 }
+
+/* =========================================================
+   4. MOBILE RESPONSIVE MASTERCLASS (max-width: 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Typography Scaling */
+    .brand-logo {
+        font-size: clamp(2.5rem, 12vw, 4rem); /* Prevents overflow */
+    }
+    .brand-tagline {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        line-height: 1.5;
+        padding: 0 1rem;
+    }
+
+    /* 2. Panel Sizing (Full Screen) */
+    .side-panel {
+        width: 100vw;
+        height: 100dvh; /* 'dvh' fixes the iOS Safari URL bar jumping bug */
+    }
+    
+    /* 3. The "Native Bottom Dock" Refactor for Triggers */
+    .panel-trigger {
+        top: auto;
+        bottom: 0;
+        height: 75px;      /* Taller for easy thumb tapping */
+        width: 50vw;       /* Split exactly in half */
+        border: none !important;
+        border-top: 1px solid rgba(0,0,0,0.1) !important;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.05) !important;
+        z-index: 9999 !important;
+    }
+
+    /* Override Desktop Alignments */
+    #panel-left .panel-trigger {
+        left: 0;
+        right: auto;
+        border-right: 1px solid rgba(0,0,0,0.05) !important;
+    }
+
+    #panel-right .panel-trigger {
+        right: 0;
+        left: auto;
+    }
+
+    /* 4. Fix the Text inside the Triggers */
+    .label-vertical {
+        writing-mode: horizontal-tb; /* Flips text back to normal */
+        transform: none;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* 5. Panel Content Padding */
+    .panel-inner {
+        padding: 2rem 1.25rem;
+        padding-bottom: 100px; /* Ensure content isn't hidden behind the new bottom dock */
+    }
+
+    /* 6. Card Polish */
+    .panel-header h2 {
+        font-size: 2rem;
+    }
+    .price-card, .wedding-card {
+        padding: 1.5rem;
+    }
+    .pricing-toggle-container {
+        margin-top: 1rem;
+        width: 100%;
+        text-align: left; /* Stacks nicely under the title */
+    }
+}
