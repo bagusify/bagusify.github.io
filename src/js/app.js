@@ -1,37 +1,108 @@
+// 1. Global State
 let appData = null;
+window.activeSide = null;
 
-// Initialization: Fetch Data
+// --- DYNAMIC HERO BACKGROUND ---
+const heroImages = [
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop', // Clean Office Architecture
+    'https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop', // Modern Building Lines
+    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'  // Digital Tech Grid
+];
+
+function setRandomHero() {
+    const hero = document.getElementById('hero-bg');
+    if (!hero) return;
+    
+    const randomImg = heroImages[Math.floor(Math.random() * heroImages.length)];
+    
+    // We keep the white radial gradient overlay at 90% opacity 
+    // so the text remains perfectly readable on the light theme.
+    hero.style.background = `radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(229,231,235,0.95) 100%), url('${randomImg}') center/cover no-repeat`;
+}
+
+// 2. EXPLICIT WINDOW BINDINGS (Fixes onclick errors)
+window.togglePanel = function(side, e) {
+    if(e) e.stopPropagation(); 
+    
+    if (window.activeSide === side) {
+        window.closeAll();
+        return;
+    }
+
+    window.closeAll();
+    const panel = document.getElementById(`panel-${side}`);
+    const hero = document.getElementById('hero-bg');
+    
+    if(panel) panel.classList.add('panel-active');
+    if(hero) hero.classList.add('hero-dimmed');
+    
+    window.activeSide = side;
+};
+
+window.closeAll = function() {
+    document.querySelectorAll('.side-panel').forEach(p => p.classList.remove('panel-active'));
+    const hero = document.getElementById('hero-bg');
+    if(hero) hero.classList.remove('hero-dimmed');
+    window.activeSide = null;
+};
+
+window.updatePriceView = function() {
+    renderCustomApps();
+};
+
+// 3. INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('src/data/master.json')
-        .then(res => res.json())
+    // Inject random background immediately
+    setRandomHero();
+
+    fetch('data.json')
+        .then(res => {
+            if (!res.ok) throw new Error("HTTP error " + res.status);
+            return res.json();
+        })
         .then(data => {
             appData = data;
             renderAll();
+        })
+        .catch(err => {
+            console.error("Data Load Error: Are you running Live Server?", err);
         });
 });
 
+// 4. RENDER LOGIC (With Defensive Checks)
 function renderAll() {
     renderCustomApps();
     renderWeddingInvites();
 }
 
 function renderCustomApps() {
-    const isYearly = document.getElementById('priceToggle').checked;
+    // DEFENSIVE CHECK: Ensure data exists before looping
+    if (!appData || !appData.customApps || !appData.customApps.tiers) {
+        console.warn("Render Aborted: customApps data is missing.");
+        return;
+    }
+
+    const toggleEl = document.getElementById('priceToggle');
+    const isYearly = toggleEl ? toggleEl.checked : false; // Failsafe if toggle is missing
+    
     const container = document.getElementById('custom-apps-grid');
-    container.innerHTML = '';
+    if (!container) {
+        console.warn("Render Aborted: #custom-apps-grid not found in HTML.");
+        return; 
+    }
+
+    container.innerHTML = ''; // Clear previous
 
     appData.customApps.tiers.forEach(tier => {
         const price = isYearly ? tier.priceYearly : tier.priceMonthly;
         const formattedPrice = new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            maximumFractionDigits: 0
+            style: 'currency', currency: 'IDR', maximumFractionDigits: 0
         }).format(price);
 
         container.innerHTML += `
             <div class="col-md-6 col-lg-3">
-                <div class="price-card">
-                    <small class="text-teal fw-bold font-monospace">${tier.tag}</small>
+                <div class="price-card h-100">
+                    <small class="text-teal fw-bold font-monospace">${tier.tag || 'TIER'}</small>
                     <h4 class="mt-2 fw-bold">${tier.name}</h4>
                     <p class="text-muted small">${tier.description}</p>
                     <h3 class="fw-bold mt-4">${formattedPrice}</h3>
@@ -44,7 +115,11 @@ function renderCustomApps() {
 }
 
 function renderWeddingInvites() {
+    if (!appData || !appData.weddingSuites) return;
+
     const container = document.getElementById('wedding-grid');
+    if (!container) return;
+    
     container.innerHTML = '';
 
     appData.weddingSuites.forEach(pkg => {
@@ -52,8 +127,8 @@ function renderWeddingInvites() {
         
         container.innerHTML += `
             <div class="col-md-5">
-                <div class="wedding-card ${pkg.popular ? 'popular' : ''}">
-                    ${pkg.popular ? '<span class="position-absolute top-0 start-50 translate-middle badge bg-warning text-dark px-3">POPULER</span>' : ''}
+                <div class="wedding-card h-100 ${pkg.popular ? 'popular' : ''}">
+                    ${pkg.popular ? '<span class="position-absolute top-0 start-50 translate-middle badge bg-warning text-dark px-3 shadow-sm">POPULER</span>' : ''}
                     <h3 class="fw-bold text-gold">${pkg.name}</h3>
                     <h4 class="fw-bold my-3">${pkg.priceRange}</h4>
                     <p class="text-muted small mb-4">Masa Aktif: ${pkg.validity}</p>
@@ -67,34 +142,7 @@ function renderWeddingInvites() {
     });
 }
 
-// Interaction States
-let activeSide = null;
-
-function togglePanel(side, e) {
-    if(e) e.stopPropagation();
-    
-    if (activeSide === side) {
-        closeAll();
-        return;
-    }
-
-    closeAll();
-    document.getElementById(`panel-${side}`).classList.add('panel-active');
-    document.getElementById('hero-bg').classList.add('hero-dimmed');
-    activeSide = side;
-}
-
-function closeAll() {
-    document.querySelectorAll('.side-panel').forEach(p => p.classList.remove('panel-active'));
-    document.getElementById('hero-bg').classList.remove('hero-dimmed');
-    activeSide = null;
-}
-
-function updatePriceView() {
-    renderCustomApps();
-}
-
-// Keyboard ESC support
+// 5. GLOBAL ESCAPE LISTENER
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAll();
+    if (e.key === 'Escape') window.closeAll();
 });
