@@ -2,7 +2,7 @@ let appData = null;
 
 // Initialization: Fetch Data
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('data.json')
+    fetch('src/data/master.json')
         .then(res => res.json())
         .then(data => {
             appData = data;
