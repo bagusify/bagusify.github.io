@@ -2,18 +2,11 @@
 let appData = null;
 window.activeSide = null;
 
-// --- DYNAMIC HERO BACKGROUND ---
-const heroImages = [
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop', // Clean Office Architecture
-    'https://images.unsplash.com/photo-1541888086425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop', // Modern Building Lines
-    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'  // Digital Tech Grid
-];
-
 function setRandomHero() {
     const hero = document.getElementById('hero-bg');
     if (!hero) return;
     
-    const randomImg = heroImages[Math.floor(Math.random() * heroImages.length)];
+    const randomImg = "https://picsum.photos/2076?grayscale&blur";
     
     // We keep the white radial gradient overlay at 90% opacity 
     // so the text remains perfectly readable on the light theme.
@@ -22,7 +15,11 @@ function setRandomHero() {
 
 // 2. EXPLICIT WINDOW BINDINGS (Fixes onclick errors)
 window.togglePanel = function(side, e) {
-    if(e) e.stopPropagation(); 
+    // THE FIX: Stop the click from triggering anything else
+    if (e) {
+        e.preventDefault(); 
+        e.stopPropagation(); 
+    }
     
     if (window.activeSide === side) {
         window.closeAll();
@@ -33,8 +30,8 @@ window.togglePanel = function(side, e) {
     const panel = document.getElementById(`panel-${side}`);
     const hero = document.getElementById('hero-bg');
     
-    if(panel) panel.classList.add('panel-active');
-    if(hero) hero.classList.add('hero-dimmed');
+    if (panel) panel.classList.add('panel-active');
+    if (hero) hero.classList.add('hero-dimmed');
     
     window.activeSide = side;
 };

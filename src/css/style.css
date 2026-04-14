@@ -75,20 +75,28 @@ body {
 
 /* TRIGGERS */
 .panel-trigger {
-    position: absolute;
+  position: absolute;
     top: 0;
     height: 100%;
     width: var(--trigger-width);
     cursor: pointer;
-    pointer-events: all;
+    
+    /* CRITICAL FIXES BELOW */
+    pointer-events: auto !important; 
+    z-index: 999; /* Punches through any invisible overlay */
+    right: 0;
+    
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
-    transition: background 0.3s;
+    background: #ffffff;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.panel-trigger:hover { background: #f3f4f6; }
+.panel-trigger:hover { 
+    background: #f3f4f6;
+    transform: scale(1.02);
+ }
 
 .label-vertical {
     writing-mode: vertical-rl;
